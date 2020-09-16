@@ -1,27 +1,31 @@
 <template>
   <el-dialog
-    :title="info.isAdd ? '添加角色':'修改角色'"
+    :title="info.isAdd ? '添加管理员':'修改管理员'"
     :visible.sync="info.isShow"
     width="40%"
     @close="cancel()"
   >
     <!-- 表单 -->
     <el-form :model="forminfo" ref="form" label-width="140px" :rules="rules">
-      <el-form-item label="角色名称" prop="rolename">
-        <el-input v-model="forminfo.rolename" placeholder="请输入角色名称"></el-input>
+      <el-form-item label="管理员角色" prop="roleid">
+        
+          <el-select v-model="forminfo.roleid"  placeholder="请选择角色">
+            <el-option
+              v-for="item in rolelist"
+              :key="item.id"
+              :label="item.rolename"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-input>
       </el-form-item>
-      <el-form-item label="角色权限 ">
-        <el-tree
-          :check-strictly="checkStrictly"
-          ref="tree"
-          node-key="id"
-          :data="menulist"
-          show-checkbox
-          default-expand-all
-          :props="{children:'children',label:'title'}"
-        ></el-tree>
+      <el-form-item label="管理员名称" prop="username">
+        <el-input v-model="forminfo.username" placeholder="请输入管理员名称"></el-input>
       </el-form-item>
-      <el-form-item label="角色状态">
+      <el-form-item label="管理员密码" prop="password">
+        <el-input v-model="forminfo.password" placeholder="请输入管理员密码"></el-input>
+      </el-form-item>
+      <el-form-item label="管理员状态">
         <el-switch v-model="forminfo.status" :active-value="1" :inactive-value="2"></el-switch>
       </el-form-item>
       <el-form-item label>
@@ -34,11 +38,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { addRole, editRole } from "@/request/role";
+import { addUser, editUser } from "@/request/user";
 
 let defaultItem = {
-  rolename: "",
-  menus: "",
+  roleid: "",
+  username: "",
+  password: "",
   status: 1 //状态1正常2禁用
 };
 let resetItem = { ...defaultItem };
@@ -57,14 +62,15 @@ export default {
       forminfo: { ...defaultItem },
       rules: {
         // 验证规则对象！
-        rolename: [{ required: true, message: "必填项", trigger: "blur" }]
+        rolename: [{ required: true, message: "必填项", trigger: "blur" }],
+        roleid: [{ required: true, message: "必填项", trigger: "blur" }]
       },
-      checkStrictly: false // false表示父子关联！ true表示父子不关联！
+    
     };
   },
   computed: {
     ...mapGetters({
-      menulist: "menu/menulist"
+      rolelist: "role/rolelist"
     })
   },
   created() {},
@@ -75,7 +81,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      get_menu_list: "menu/get_menu_list",
+      get_user_list: "menu/get_user_list",
       get_role_list: "role/get_role_list"
     }),
     setinfo(val) {
@@ -96,31 +102,25 @@ export default {
     },
     async submit() {
       // 获取树形控件选中的节点！
-      let idarr = this.$refs.tree
-        .getCheckedKeys()
-        .concat(this.$refs.tree.getHalfCheckedKeys());
-      if (idarr.length) {
-        this.forminfo.menus = idarr;
-      } else {
-        this.$message.warning("请选择权限");
-        return;
-      }
-
+    if(this.isAdd&&!this.forminfo.password){
+      this.$message.warning('请输入密码')
+      return;
+    }
       //表单验证
       this.$refs.form.validate(async vaid => {
         if (vaid) {
           let res;
           if (this.info.isAdd) {
             // 添加还是修改
-            res = await addRole(this.forminfo);
+            res = await addUser(this.forminfo);
             console.log(res);
           } else {
-            res = await editRole(this.forminfo);
+            res = await editUser(this.forminfo);
           }
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.info.isShow = false;
-            this.get_role_list(); //重新获取角色列表
+            this.get_user_list(); //重新获取角色列表
 
             this.cancel();
             //提交完毕后重置信息 //  // 无论是修改成功还是添加成功，都应该让表单为空！或者弹框关闭的时候

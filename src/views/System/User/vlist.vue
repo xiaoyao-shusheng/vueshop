@@ -1,6 +1,6 @@
 <template>
   <div class="table-bg">
-    <el-table :data="rolelist" border>
+    <el-table :data="userlist" border>
       <el-table-column prop="id" label="ID" align="center"></el-table-column>
       <el-table-column prop="rolename" label="角色名称" align="center"></el-table-column>
 

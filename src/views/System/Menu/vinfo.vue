@@ -1,5 +1,10 @@
 <template>
-  <el-dialog :title="info.isAdd ? '添加菜单':'修改菜单'" :visible.sync="info.isShow" width="40%">
+  <el-dialog
+    :title="info.isAdd ? '添加菜单':'修改菜单'"
+    :visible.sync="info.isShow"
+    width="40%"
+    @close="cancel()"
+  >
     <!-- 表单 -->
     <el-form :model="forminfo" ref="form" label-width="140px" :rules="rules">
       <el-form-item label="菜单类型">
@@ -44,7 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { addRole, editRole } from "@/request/role";
+import { addMenu, editMenu } from "@/request/menu";
 
 let defaultItem = {
   pid: 0,
@@ -90,7 +95,7 @@ export default {
     setinfo(val) {
       // 将数据赋给默认defaultItem; 赋给表单
       defaultItem = { ...val }; //点击添加的时候把他存起来
-      this.forminfo = defaultItem; //把存起来的值赋给表单 显示出来
+      this.forminfo = { ...val }; //把存起来的值赋给表单 显示出来
     },
     async submit() {
       //表单验证
@@ -99,16 +104,16 @@ export default {
           let res;
           if (this.info.isAdd) {
             // 添加还是修改
-            res = await addRole(this.forminfo);
+            res = await addMenu(this.forminfo);
             console.log(res);
           } else {
-            res = await editRole(this.forminfo);
+            res = await editMenu(this.forminfo);
           }
           if (res.code == 200) {
             this.$message.success(res.msg);
             this.info.isShow = false;
             this.get_menu_list(); //再次获取列表,让仓库的数据保持最新
-            this.forminfo = { ...resetItem }; //提交完毕后重置信息 //  // 无论是修改成功还是添加成功，都应该让表单为空！或者弹框关闭的时候
+            this.cancel(); //提交完毕后重置信息 //  // 无论是修改成功还是添加成功，都应该让表单为空！或者弹框关闭的时候
           } else {
             this.$message.error(res.msg);
           }
@@ -116,7 +121,17 @@ export default {
       });
     },
     reset() {
-      this.forminfo = { ...defaultItem };
+      if (this.info.isAdd) {
+        // 添加时候的重置！
+        this.forminfo = { ...resetItem };
+      } else {
+        // 修改时候的重置！
+        this.setinfo({ ...defaultItem });
+      }
+    },
+    cancel() {
+      //  // 无论是修改成功还是添加成功，都应该让表单为空！或者弹框关闭的时候！
+      this.forminfo = { ...resetItem };
     }
   },
   components: {}
