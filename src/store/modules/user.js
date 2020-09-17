@@ -5,14 +5,22 @@ export default {
     state: {
         userlist: [],
         page: 1,
-        size: 5 // 菜单列表
+        size: 10 // 菜单列表
     },
     getters: {
-        userlist: state => state.userlist
+        userlist: state => state.userlist,
+        page: state => state.page,
+        size: state => state.size,
     },
     mutations: {
         SET_LIST(state, data) {
             state.userlist = data;
+        },
+        SET_page(state, data) {
+            state.page = data;
+        },
+        SET_size(state, data) {
+            state.size = data;
         }
     },
     actions: {

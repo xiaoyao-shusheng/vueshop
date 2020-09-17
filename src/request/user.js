@@ -3,11 +3,12 @@ import $axios from "@/common/http" // 导入封装好的axios!
 
 
 /* 获取管理员列表 */
-export async function getUser(size = 10, page = 1) {
+export async function getUser(page = 1, size = 10) {
     let res = await $axios.get("/userlist", {
-        parms: {
-            size,
-            page
+        params: {
+            page,
+            size
+
         }
     })
     if (res.code == 200 && res.list) {
@@ -33,7 +34,7 @@ export function addUser(data) {
  */
 export function editUser(data) {
     return $axios.post("/useredit", data)
-    console.log(res);
+
 }
 
 
@@ -43,5 +44,14 @@ export function editUser(data) {
  */
 export function delUser(uid) {
     return $axios.post("/userdelete", { uid })
+
+}
+/**
+ * 获取管理员个数
+ * 
+ */
+export async function getToal() {
+    let res = await $axios.post("/usercount")
+    return res.list[0].total
 
 }

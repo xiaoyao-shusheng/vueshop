@@ -22,8 +22,9 @@
       <el-form-item label="管理员名称" prop="username">
         <el-input v-model="forminfo.username" placeholder="请输入管理员名称"></el-input>
       </el-form-item>
-      <el-form-item label="管理员密码" prop="password">
-        <el-input v-model="forminfo.password" placeholder="请输入管理员密码"></el-input>
+     
+      <el-form-item label="管理员密码" prop="password" >
+        <el-input v-model="forminfo.password" :placeholder=" info.isAdd ? '请输入密码' :'留空表示不修改'"></el-input>
       </el-form-item>
       <el-form-item label="管理员状态">
         <el-switch v-model="forminfo.status" :active-value="1" :inactive-value="2"></el-switch>
@@ -70,32 +71,23 @@ export default {
   },
   computed: {
     ...mapGetters({
-      rolelist: "role/rolelist"
+      rolelist: "role/rolelist",
     })
   },
   created() {},
-  mounted() {
-    if (!this.menulist.length) {
-      this.get_menu_list();
+  mounted() {   
+    if (!this.rolelist.length) {
+      this.get_role_list();
     }
   },
   methods: {
     ...mapActions({
-      get_user_list: "menu/get_user_list",
+      get_user_list: "user/get_user_list",
       get_role_list: "role/get_role_list"
     }),
     setinfo(val) {
-      // 将数据赋给默认defaultItem; 赋给表单
-      //将权限节点,回显到树中去
-      let idarr = val.menus.split(",");
-      if (idarr[0]) {
-        this.checkStrictly = true; // 父子互不关联！
-        // 等到节点渲染完成再做某个事情！ this.$nextTick(()=>{  等到vue把节点渲染完成再做某些事情！ })
-        this.$nextTick(() => {
-          this.$refs.tree.setCheckedKeys(idarr);
-          this.checkStrictly = false; // 又要父子互相关联！
-        });
-      }
+      // 将数据赋给默认defaultItem; 赋给表单 
+      val.password="",
       defaultItem = { ...val }; //点击添加的时候把他存起来
 
       this.forminfo = { ...val }; //把存起来的值赋给表单 显示出来
@@ -113,7 +105,7 @@ export default {
           if (this.info.isAdd) {
             // 添加还是修改
             res = await addUser(this.forminfo);
-            console.log(res);
+          
           } else {
             res = await editUser(this.forminfo);
           }
@@ -135,13 +127,13 @@ export default {
       if (this.info.isAdd) {
         // 添加时候重置
         this.forminfo = { ...resetItem };
-        this.$refs.tree.setCheckedKeys([]);
+        
       } else {
         this.setinfo({ ...defaultItem });
       }
     },
     cancel() {
-      this.$refs.tree.setCheckedKeys([]), (this.forminfo = { ...resetItem });
+      (this.forminfo = { ...resetItem });
     }
   },
   components: {}
