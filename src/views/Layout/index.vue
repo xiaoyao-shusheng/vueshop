@@ -17,7 +17,7 @@
 <script>
 import left from "@/components/left";
 import top from "@/components/top";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   data() {
     return {};
@@ -25,7 +25,8 @@ export default {
   created() {},
   methods: {},
   computed: {
-    ...mapState(["iscollspace"])
+    ...mapState(["iscollspace"]),
+    ...mapGetters({ menus: "user/menus" })
   },
   components: {
     left,

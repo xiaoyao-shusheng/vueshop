@@ -1,5 +1,7 @@
 <template>
-  <div>我是大框架的小首页(就是整个大屏幕的右侧小首页)</div>
+  <div>
+    <img src="../assets/images/aisi.jpg" alt />
+  </div>
 </template>
 
 <script>
@@ -13,4 +15,7 @@ export default {
 };
 </script>
 <style scoped>
+img {
+  width: 1200px;
+}
 </style>

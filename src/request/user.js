@@ -50,8 +50,18 @@ export function delUser(uid) {
  * 获取管理员个数
  * 
  */
-export async function getToal() {
-    let res = await $axios.post("/usercount")
+export async function getTotal() {
+    let res = await $axios.get("/usercount")
     return res.list[0].total
+}
+
+
+/**
+ * 登录
+ *
+ */
+export function Login(data) {
+    return $axios.post("/userlogin", data)
+
 
 }

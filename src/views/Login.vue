@@ -2,15 +2,15 @@
   <el-row class="login-bg">
     <el-col :span="6" class="login-box">
       <h3 class="login-title">小U商城管理系统</h3>
-      <el-form :model="forminfo" ref="form">
-        <el-form-item>
+      <el-form :model="forminfo" ref="form" :rules="rules">
+        <el-form-item prop="username">
           <el-input v-model="forminfo.username" placeholder="请输入账号">
             <template slot="prepend">
               <i class="el-icon-user"></i>
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input v-model="forminfo.password" show-password placeholder="请输入密码">
             <template slot="prepend">
               <i class="el-icon-lock"></i>
@@ -18,7 +18,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="login-btn" type="primary" @click="login">立即登录</el-button>
+          <el-button class="login-btn" type="primary" @click="submit">立即登录</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -26,18 +26,31 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
       forminfo: {
-        username: "",
-        password: ""
+        username: "杨鹏",
+        password: "995177720"
+      },
+      rules: {
+        username: [{ required: true, message: "必填！", trigger: "blur" }],
+        password: [{ required: true, message: "必填！", trigger: "blur" }]
       }
     };
   },
   created() {},
   methods: {
-    login() {}
+    ...mapActions({ login: "user/login" }),
+
+    submit() {
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.login(this.forminfo);
+        }
+      });
+    }
   },
   components: {}
 };

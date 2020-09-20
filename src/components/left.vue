@@ -18,7 +18,20 @@
       <!-- 只要嵌套就是<el-submenu></el-submenu> 
     然后下面会有一个<template slot="title"></template>插槽 代表父级
       -->
-      <el-submenu index="1">
+      <template v-for="(item,index) in menus">
+        <el-menu-item v-if="item.type==2" :index="item.url">
+          <i :class="item.icon"></i>
+          <span slot="title">{{item.title}}</span>
+        </el-menu-item>
+        <el-submenu v-else :index="index+''">
+          <template slot="title">
+            <i :class="item.icon"></i>
+            <span slot="title">{{item.title}}</span>
+          </template>
+          <el-menu-item :index="val.url" v-for="(val,idx) in item.children" :key="idx">{{val.title}}</el-menu-item>
+        </el-submenu>
+      </template>
+      <!-- <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-s-tools"></i>
           <span slot="title">系统设置</span>
@@ -26,8 +39,8 @@
         <el-menu-item index="/menu">菜单管理</el-menu-item>
         <el-menu-item index="/role">角色管理</el-menu-item>
         <el-menu-item index="/user">管理员管理</el-menu-item>
-      </el-submenu>
-      <el-submenu index="2">
+      </el-submenu>-->
+      <!-- <el-submenu index="2">
         <template slot="title">
           <i class="el-icon-shopping-bag-2"></i>
           <span slot="title">商城管理</span>
@@ -38,20 +51,21 @@
         <el-menu-item index="/member">会员管理</el-menu-item>
         <el-menu-item index="/banner">轮播图管理</el-menu-item>
         <el-menu-item index="/seckill">秒杀活动</el-menu-item>
-      </el-submenu>
+      </el-submenu>-->
     </el-menu>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
   created() {},
   computed: {
-    ...mapState(["iscollspace"])
+    ...mapState(["iscollspace"]),
+    ...mapGetters({ menus: "user/menus" })
   },
   methods: {},
   components: {}

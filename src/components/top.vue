@@ -34,14 +34,14 @@
     <div>
       <el-dropdown>
         <span class="el-dropdown-link">
-          笨比你好!
+          {{username}}你好
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
             <i class="el-icon-full-screen"></i>全屏操作
           </el-dropdown-item>
-          <el-dropdown-item>
+          <el-dropdown-item @click.native="QUIT">
             <i class="el-icon-switch-button"></i>退出登录
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -51,16 +51,17 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
   created() {},
   computed: {
-    ...mapState(["iscollspace"])
+    ...mapState(["iscollspace"]),
+    ...mapGetters({ username: "user/username" })
   },
-  methods: { ...mapMutations(["TOGGLE"]) },
+  methods: { ...mapMutations({ TOGGLE: "TOGGLE", QUIT: "user/QUIT" }) },
   components: {}
 };
 </script>
