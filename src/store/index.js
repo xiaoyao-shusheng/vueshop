@@ -8,6 +8,9 @@ Vue.use(Vuex);
 import menu from "./modules/menu"
 import role from "./modules/role"
 import user from "./modules/user"
+import category from "./modules/category"
+import specs from "./modules/specs"
+import goods from "./modules/goods"
 
 let store = new Vuex.Store({
     state: {
@@ -19,7 +22,7 @@ let store = new Vuex.Store({
         }
     },
     modules: {
-        menu, role, user
+        menu, role, user, category, specs, goods
     }
 });
 export default store

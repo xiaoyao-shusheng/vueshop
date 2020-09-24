@@ -11,10 +11,6 @@
       :default-active="$route.path"
       :collapse="iscollspace"
     >
-      <el-menu-item index="/index">
-        <i class="el-icon-s-home"></i>
-        <span slot="title">后台首页</span>
-      </el-menu-item>
       <!-- 只要嵌套就是<el-submenu></el-submenu> 
     然后下面会有一个<template slot="title"></template>插槽 代表父级
       -->

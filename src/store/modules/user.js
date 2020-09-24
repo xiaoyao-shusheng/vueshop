@@ -82,7 +82,7 @@ export default {
             let res = await Login(data)
 
             if (res.code == 200) {
-                console.log((res.list))
+
                 commit('SET_USERINFO', res.list)
                 Message.success("登录成功")
                 router.push("/") // 跳转到后台首页

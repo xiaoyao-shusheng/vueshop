@@ -32,7 +32,7 @@ export default {
     return {
       forminfo: {
         username: "杨鹏",
-        password: "995177720"
+        password: "99"
       },
       rules: {
         username: [{ required: true, message: "必填！", trigger: "blur" }],

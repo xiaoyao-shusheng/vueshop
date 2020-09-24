@@ -46,7 +46,12 @@ let router = new Router({
         {
           path: "/category",
           component: () => import("@/views/Shop/Category"),
-          meta: { title: '商品分类' }
+          meta: { title: '分类管理' }
+        },
+        {
+          path: "/specs",
+          component: () => import("@/views/Shop/Specs"),
+          meta: { title: "规格管理" }
         },
         {
           path: "/goods",
@@ -61,18 +66,14 @@ let router = new Router({
         {
           path: "/banner",
           component: () => import("@/views/Shop/Banner"),
-          meta: { title: "轮播管理" }
+          meta: { title: "轮播图管理" }
         },
         {
           path: "/seckill",
           component: () => import("@/views/Shop/Seckill"),
           meta: { title: "秒杀管理" }
         },
-        {
-          path: "/specs",
-          component: () => import("@/views/Shop/Specs"),
-          meta: { title: "商品规格" }
-        }
+
 
       ]
     },
