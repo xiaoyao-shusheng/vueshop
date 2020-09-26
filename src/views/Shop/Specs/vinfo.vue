@@ -11,7 +11,7 @@
         <el-input v-model="forminfo.specsname" placeholder="请输入属性名"></el-input>
       </el-form-item>
 
-      <el-form-item label="属性值" prop>
+      <el-form-item label="属性值" prop="attrs">
         <label v-for="(item,index) in list" :key="index">
           <el-input
             style="display:inline-block;width:260px;margin-bottom:10px;"
@@ -59,7 +59,8 @@ export default {
       list: [{ value: "" }],
       rules: {
         // 验证规则对象！
-        specsname: [{ required: true, message: "必填项", trigger: "blur" }]
+        specsname: [{ required: true, message: "必填项", trigger: "blur" }],
+        attrs: [{ required: true, message: "必填项", trigger: "blur" }]
       }
     };
   },

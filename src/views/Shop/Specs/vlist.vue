@@ -38,7 +38,7 @@
       @size-change="set_size"
       @current-change="set_page"
       :current-page="page"
-      :page-sizes="[1, 2, 3, 4]"
+      :page-sizes="[10, 20, 30, 40]"
       :page-size="size"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"

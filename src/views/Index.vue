@@ -138,7 +138,8 @@ export default {
   data() {
     return {
       t1data: t1data,
-      t2data: {}
+      t2data: {},
+      t3data: {}
     };
   },
   created() {

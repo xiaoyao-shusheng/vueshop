@@ -10,7 +10,7 @@
       <el-form-item label="角色名称" prop="rolename">
         <el-input v-model="forminfo.rolename" placeholder="请输入角色名称"></el-input>
       </el-form-item>
-      <el-form-item label="角色权限 ">
+      <el-form-item label="角色权限 " prop="menu">
         <el-tree
           :check-strictly="checkStrictly"
           ref="tree"
@@ -57,7 +57,8 @@ export default {
       forminfo: { ...defaultItem },
       rules: {
         // 验证规则对象！
-        rolename: [{ required: true, message: "必填项", trigger: "blur" }]
+        rolename: [{ required: true, message: "必填项", trigger: "blur" }],
+        menu: [{ required: true, message: "必填项", trigger: "blur" }]
       },
       checkStrictly: false // false表示父子关联！ true表示父子不关联！
     };

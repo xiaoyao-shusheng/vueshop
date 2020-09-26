@@ -12,7 +12,7 @@
         <el-tab-pane label="基本信息" name="first">
           <el-row>
             <el-col :span="12" :offset="5">
-              <el-form-item label="一级分类">
+              <el-form-item label="一级分类" prop="first_cateid">
                 <el-select v-model="forminfo.first_cateid" placeholder="请选择" @change="topChange">
                   <el-option
                     v-for="item in catelist"
@@ -22,7 +22,7 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="二级分类">
+              <el-form-item label="二级分类" prop="second_cateid">
                 <el-select v-model="forminfo.second_cateid" placeholder="请选择">
                   <el-option
                     v-for="item in secondlist"
@@ -59,7 +59,7 @@
                 </el-dialog>
               </el-form-item>
 
-              <el-form-item label="商品规格">
+              <el-form-item label="商品规格" prop="specsid">
                 <el-select v-model="forminfo.specsid" @change="specsChange" placeholder="请选择">
                   <el-option
                     v-for="item in specslist"
@@ -69,7 +69,7 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="商品属性值">
+              <el-form-item label="商品属性值" prop="specsattr">
                 <el-select v-model="forminfo.specsattr" multiple placeholder="请选择">
                   <el-option
                     v-for="item in attrslist"
@@ -84,7 +84,7 @@
           </el-row>
         </el-tab-pane>
 
-        <el-tab-pane label="详细描述" name="second">
+        <el-tab-pane label="详细描述" name="second" prop="description">
           <el-row>
             <el-col :span="8">
               <el-form-item label="是否新品">
@@ -163,7 +163,15 @@ export default {
       forminfo: { ...defaultItem },
       rules: {
         // 验证规则对象！
-        // catename: [{ required: true, message: "必填项", trigger: "blur" }]
+        first_cateid: [{ required: true, message: "必填项", trigger: "blur" }],
+        second_cateid: [{ required: true, message: "必填项", trigger: "blur" }],
+        goodsname: [{ required: true, message: "必填项", trigger: "blur" }],
+        price: [{ required: true, message: "必填项", trigger: "blur" }],
+        market_price: [{ required: true, message: "必填项", trigger: "blur" }],
+        description: [{ required: true, message: "必填项", trigger: "blur" }],
+        specsid: [{ required: true, message: "必填项", trigger: "blur" }],
+        specsattr: [{ required: true, message: "必填项", trigger: "blur" }],
+        img: [{ required: true, message: "必填项", trigger: "blur" }]
       },
       filelist: [], // [{name:'',url:''}]
       activeName: "first",

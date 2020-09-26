@@ -63,8 +63,10 @@ export default {
       forminfo: { ...defaultItem },
       rules: {
         // 验证规则对象！
-        rolename: [{ required: true, message: "必填项", trigger: "blur" }],
-        roleid: [{ required: true, message: "必填项", trigger: "blur" }]
+       
+        roleid: [{ required: true, message: "必填项", trigger: "blur" }],
+        username: [{ required: true, message: "必填项", trigger: "blur" }],
+        password: [{ required: true, message: "必填项", trigger: "blur" }],
       },
     
     };

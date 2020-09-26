@@ -80,7 +80,8 @@ export default {
       forminfo: { ...defaultItem },
       rules: {
         // 验证规则对象！
-        catename: [{ required: true, message: "必填项", trigger: "blur" }]
+        catename: [{ required: true, message: "必填项", trigger: "blur" }],
+        img: [{ required: true, message: "必填项", trigger: "blur" }]
       },
       filelist: [], // [{name:'',url:''}]
       options: []

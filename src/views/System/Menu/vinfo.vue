@@ -76,7 +76,8 @@ export default {
       rules: {
         // 验证规则对象！
         title: [{ required: true, message: "必填项", trigger: "blur" }],
-        url: [{ required: true, message: "必填项", trigger: "blur" }]
+        url: [{ required: true, message: "必填项", trigger: "blur" }],
+        icon: [{ required: true, message: "必填项", trigger: "blur" }]
       },
       options: []
     };
